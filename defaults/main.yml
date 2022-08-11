@@ -1,0 +1,59 @@
+---
+APP_PYTHON: "{{ '/usr/bin/python' if lookup('file', '/usr/bin/python', errors='ignore') else '/usr/bin/python3' }}"
+APP_DEPENDENCIES_REDHAT:
+  - git
+  - make
+  - yasm
+  - clang
+  - clang-devel
+  - llvm
+  - llvm-devel
+  - rustfmt
+  - subversion
+  - rust
+  - cargo
+  - fmt-devel
+  - gloox-devel
+  - libicu-devel
+  - libogg
+  - libogg-devel
+  - libpng-devel
+  - libsodium-devel
+  - libvorbis-devel
+  - libxml2-devel
+  - gcc-c++
+  - php-xml
+  - python3
+  - zip
+  - cmake
+  - patch
+  - openal-soft-devel
+  - pkgconfig
+  - SDL2-devel
+  - nspr-devel
+  - mozjs52-devel
+  - dbus
+  - dbus-x11
+  - libXcursor-devel
+  - zlib-devel
+  - libjpeg-devel
+  - libtiff-devel
+  - wxGTK3-devel
+APP_DEPENDENCIES: "{{ APP_DEPENDENCIES_REDHAT if ansible_distribution_file_variety == 'RedHat' else APP_DEPENDENCIES_REDHAT }}"
+APP_NAME: 0ad
+APP_DISPLAY_NAME: 0 A.D.
+APP_GENERIC_NAME: 0AD Epic Battle Game
+APP_COMMENT: 0 A.D. is similar to Age of Empires
+APP_USER: "{{ lookup('env', 'USER') }}"
+APP_PREFIX: "/home/{{ APP_USER }}/.local"
+APP_ROOT: "{{ false if APP_PREFIX is regex('^/home') else true }}"
+APP_SRC: "{{ APP_PREFIX }}/src/{{ APP_NAME }}"
+APP_README: "{{ APP_SRC }}/README.md"
+APP_OPT: "{{ APP_PREFIX }}/opt"
+APP_REPO_SVN: https://svn.wildfiregames.com/public/ps/trunk/
+APP_TAG: r25860
+APP_DESKTOP: "{{ APP_PREFIX }}/share/applications/{{ APP_NAME }}.desktop"
+APP_ICON: "{{ APP_SRC }}/build/resources/0ad.png"
+APP_EXEC: "{{ APP_SRC }}/binaries/system/pyrogenesis"
+APP_KEYWORDS: "battle;war;game;multiplayer;network;"
+APP_CATEGORIES: "Game;ActionGame;StrategyGame;"

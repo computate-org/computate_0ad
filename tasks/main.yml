@@ -1,0 +1,57 @@
+---
+- include_role:
+    name: computate.computate_wxwidgets
+- include_role:
+    name: computate.computate_enet
+- include_role:
+    name: computate.computate_miniupnpc
+- include_role:
+    name: computate.computate_curl
+- include_role:
+    name: computate.computate_boost
+- include_role:
+    name: computate.computate_libsodium
+- name: "Install dependencies as root: {{ APP_DEPENDENCIES | join(' ') }}"
+  package:
+    name: "{{ APP_DEPENDENCIES }}"
+  become: true
+  register: INSTALL_DEPENDENCIES
+  ignore_errors: true
+- name: "Install dependencies as user {{ APP_USER }}: {{ APP_DEPENDENCIES | join(' ') }}"
+  shell: "pkcon install -y {{ item }} | true"
+  loop: "{{ APP_DEPENDENCIES }}"
+  when: INSTALL_DEPENDENCIES.failed
+- name: Create the directory {{ APP_SRC }}
+  file:
+    name: "{{ APP_SRC }}"
+    state: directory
+    owner: "{{ APP_USER }}"
+  become: "{{ APP_ROOT }}"
+- name: Check for the {{ APP_NAME }} README file
+  stat:
+    path: "{{ APP_README }}"
+  register: APP_README_PATH
+- name: "Clone the source code into {{ APP_SRC }}"
+  ansible.builtin.subversion:
+    repo: "{{ APP_REPO_SVN }}"
+    dest: "{{ APP_SRC }}"
+    revision: "{{ APP_TAG }}"
+  ignore_errors: true
+- name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh"
+  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh"
+  args:
+    chdir: "{{ APP_SRC }}/build/workspaces"
+- name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch -j $(nproc)"
+  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch -j $(nproc)"
+  args:
+    chdir: "{{ APP_SRC }}/build/workspaces"
+- name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig LIBRARY_PATH={{ APP_PREFIX }}/lib CPATH={{ APP_PREFIX }}/include make -j $(nproc)"
+  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig LIBRARY_PATH={{ APP_PREFIX }}/lib CPATH={{ APP_PREFIX }}/include make -j $(nproc)"
+  args:
+    chdir: "{{ APP_SRC }}/build/workspaces/gcc"
+- name: "Create the launcher {{ APP_DESKTOP }}"
+  template:
+    src: app.desktop
+    dest: "{{ APP_DESKTOP }}"
+  become: "{{ APP_ROOT }}"
+
