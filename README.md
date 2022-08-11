@@ -1,4 +1,13 @@
 
+# Install the prerequisite applications
+
+- https://github.com/computate-org/computate_wxwidgets
+- https://github.com/computate-org/computate_enet
+- https://github.com/computate-org/computate_miniupnpc
+- https://github.com/computate-org/computate_curl
+- https://github.com/computate-org/computate_boost
+- https://github.com/computate-org/computate_libsodium
+
 # Install the 0ad ansible role
 
 ```bash
