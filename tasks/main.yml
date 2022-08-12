@@ -1,16 +1,16 @@
 ---
-- include_role:
-    name: computate.computate_wxwidgets
-- include_role:
-    name: computate.computate_enet
-- include_role:
-    name: computate.computate_miniupnpc
-- include_role:
-    name: computate.computate_curl
-- include_role:
-    name: computate.computate_boost
-- include_role:
-    name: computate.computate_libsodium
+#- include_role:
+#    name: computate.computate_wxwidgets
+#- include_role:
+#    name: computate.computate_enet
+#- include_role:
+#    name: computate.computate_miniupnpc
+#- include_role:
+#    name: computate.computate_curl
+#- include_role:
+#    name: computate.computate_boost
+#- include_role:
+#    name: computate.computate_libsodium
 - name: "Install dependencies as root: {{ APP_DEPENDENCIES | join(' ') }}"
   package:
     name: "{{ APP_DEPENDENCIES }}"
@@ -21,12 +21,6 @@
   shell: "pkcon install -y {{ item }} | true"
   loop: "{{ APP_DEPENDENCIES }}"
   when: INSTALL_DEPENDENCIES.failed
-- name: Create the directory {{ APP_SRC }}
-  file:
-    name: "{{ APP_SRC }}"
-    state: directory
-    owner: "{{ APP_USER }}"
-  become: "{{ APP_ROOT }}"
 - name: Check for the {{ APP_NAME }} README file
   stat:
     path: "{{ APP_README }}"
