@@ -28,4 +28,19 @@ cd ~/.ansible/roles/computate.computate_0ad
 ansible-playbook install.yml
 ```
 
-Christopher Tate
+# Set up firewall on each computer
+
+```bash
+
+# For example on your computer
+sudo firewall-cmd --add-port=20595/udp --zone=trusted --permanent
+sudo firewall-cmd --add-port=20595/udp --zone=trusted
+sudo firewall-cmd --add-source 192.168.86.190/24 --zone trusted
+sudo firewall-cmd --add-source 192.168.86.190/24 --zone trusted --permanent
+
+# For example on another computer
+sudo firewall-cmd --add-port=20595/udp --zone=trusted --permanent
+sudo firewall-cmd --add-port=20595/udp --zone=trusted
+sudo firewall-cmd --add-source 192.168.86.37/24 --zone trusted
+sudo firewall-cmd --add-source 192.168.86.37/24 --zone trusted --permanent
+```
