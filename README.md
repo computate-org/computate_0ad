@@ -5,9 +5,9 @@
 - https://github.com/computate-org/computate_enet
 - https://github.com/computate-org/computate_miniupnpc
 - https://github.com/computate-org/computate_curl
-- https://github.com/computate-org/computate_boost
 - https://github.com/computate-org/computate_libsodium
 - https://github.com/computate-org/computate_gloox
+- https://github.com/computate-org/computate_miniupnpc
 
 # Install the 0ad ansible role
 
