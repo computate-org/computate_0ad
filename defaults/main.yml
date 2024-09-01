@@ -31,7 +31,7 @@ APP_DEPENDENCIES_REDHAT:
   - pkgconfig
   - SDL2-devel
   - nspr-devel
-  - mozjs52-devel
+  - mozjs78-devel
   - dbus
   - dbus-x11
   - libXcursor-devel
@@ -50,8 +50,11 @@ APP_ROOT: "{{ false if APP_PREFIX is regex('^/home') else true }}"
 APP_SRC: "{{ APP_PREFIX }}/src/{{ APP_NAME }}"
 APP_README: "{{ APP_SRC }}/README.md"
 APP_OPT: "{{ APP_PREFIX }}/opt"
-APP_REPO_SVN: https://svn.wildfiregames.com/public/ps/trunk/
-APP_TAG: r25860
+APP_REPO_SSH: git@github.com:0ad/0ad.git
+APP_REPO_HTTPS: "{{ APP_REPO_SSH | regex_replace('git@([^:]+):', 'https://\\1/') }}"
+APP_TAG: A26
+#APP_REPO_SVN: https://svn.wildfiregames.com/public/ps/trunk/
+#APP_TAG: r25860
 APP_DESKTOP: "{{ APP_PREFIX }}/share/applications/{{ APP_NAME }}.desktop"
 APP_ICON: "{{ APP_SRC }}/build/resources/0ad.png"
 APP_EXEC: "{{ APP_SRC }}/binaries/system/pyrogenesis"

@@ -1,16 +1,4 @@
 ---
-#- include_role:
-#    name: computate.computate_wxwidgets
-#- include_role:
-#    name: computate.computate_enet
-#- include_role:
-#    name: computate.computate_miniupnpc
-#- include_role:
-#    name: computate.computate_curl
-#- include_role:
-#    name: computate.computate_boost
-#- include_role:
-#    name: computate.computate_libsodium
 - name: "Install dependencies as root: {{ APP_DEPENDENCIES | join(' ') }}"
   package:
     name: "{{ APP_DEPENDENCIES }}"
@@ -25,18 +13,34 @@
   stat:
     path: "{{ APP_README }}"
   register: APP_README_PATH
-- name: "Clone the source code into {{ APP_SRC }}"
-  ansible.builtin.subversion:
-    repo: "{{ APP_REPO_SVN }}"
+- name: "Clone the {{ APP_REPO_SSH }} source code into {{ APP_SRC }}"
+  ansible.builtin.git:
+    repo: "{{ APP_REPO_SSH }}"
     dest: "{{ APP_SRC }}"
-    revision: "{{ APP_TAG }}"
+    version: "{{ APP_TAG }}"
   ignore_errors: true
+  when: not APP_README_PATH.stat.exists
+  register: CLONE_REPO
+- name: "Clone the {{ APP_REPO_HTTPS }} source code into {{ APP_SRC }}"
+  ansible.builtin.git:
+    repo: "{{ APP_REPO_HTTPS }}"
+    dest: "{{ APP_SRC }}"
+    version: "{{ APP_TAG }}"
+    recursive: true
+    update: true
+  when: not APP_README_PATH.stat.exists and CLONE_REPO.failed
+    #- name: "Clone the source code into {{ APP_SRC }}"
+    #  ansible.builtin.subversion:
+    #    repo: "{{ APP_REPO_SVN }}"
+    #    dest: "{{ APP_SRC }}"
+    #    revision: "{{ APP_TAG }}"
+    #  ignore_errors: true
 - name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh"
   shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh"
   args:
     chdir: "{{ APP_SRC }}/build/workspaces"
-- name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch -j $(nproc)"
-  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch -j $(nproc)"
+- name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch --with-system-mozjs -j $(nproc)"
+  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch --with-system-mozjs -j $(nproc)"
   args:
     chdir: "{{ APP_SRC }}/build/workspaces"
 - name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig LIBRARY_PATH={{ APP_PREFIX }}/lib CPATH={{ APP_PREFIX }}/include make -j $(nproc)"
