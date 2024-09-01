@@ -6,6 +6,7 @@ APP_DEPENDENCIES_REDHAT:
   - yasm
   - clang
   - clang-devel
+  - clang15-devel
   - llvm
   - llvm-devel
   - rustfmt
@@ -15,6 +16,7 @@ APP_DEPENDENCIES_REDHAT:
   - fmt-devel
   - gloox-devel
   - libicu-devel
+  - miniupnpc-devel
   - libogg
   - libogg-devel
   - libpng-devel

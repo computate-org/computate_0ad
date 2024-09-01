@@ -29,18 +29,18 @@
     recursive: true
     update: true
   when: not APP_README_PATH.stat.exists and CLONE_REPO.failed
-    #- name: "Clone the source code into {{ APP_SRC }}"
-    #  ansible.builtin.subversion:
-    #    repo: "{{ APP_REPO_SVN }}"
-    #    dest: "{{ APP_SRC }}"
-    #    revision: "{{ APP_TAG }}"
-    #  ignore_errors: true
+- name: "Clone the source code into {{ APP_SRC }}"
+  ansible.builtin.subversion:
+    repo: "{{ APP_REPO_SVN }}"
+    dest: "{{ APP_SRC }}"
+    revision: "{{ APP_TAG }}"
+  ignore_errors: true
 - name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh"
   shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh"
   args:
     chdir: "{{ APP_SRC }}/build/workspaces"
-- name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch --with-system-mozjs -j $(nproc)"
-  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch --with-system-mozjs -j $(nproc)"
+- name: "Run env CC=clang-15 CXX=clang++-15 PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch -j $(nproc)"
+  shell: "env CC=clang-15 CXX=clang++-15 PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --enable-atlas --without-tests --without-pch -j $(nproc)"
   args:
     chdir: "{{ APP_SRC }}/build/workspaces"
 - name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig LIBRARY_PATH={{ APP_PREFIX }}/lib CPATH={{ APP_PREFIX }}/include make -j $(nproc)"
