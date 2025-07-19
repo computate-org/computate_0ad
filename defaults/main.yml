@@ -59,7 +59,7 @@ APP_TAG: a27.1-rc3
 #APP_REPO_SVN: https://svn.wildfiregames.com/public/ps/trunk/
 #APP_TAG: r25860
 APP_DESKTOP: "{{ APP_PREFIX }}/share/applications/{{ APP_NAME }}.desktop"
-APP_ICON: "{{ APP_SRC }}/build/resources/0ad.png"
+APP_ICON: "{{ APP_SRC }}/build/resources/ps.ico"
 APP_EXEC: "{{ APP_SRC }}/binaries/system/pyrogenesis"
 APP_KEYWORDS: "battle;war;game;multiplayer;network;"
 APP_CATEGORIES: "Game;ActionGame;StrategyGame;"
