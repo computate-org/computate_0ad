@@ -8,12 +8,26 @@ sudo crb enable
 ```
 
 - https://github.com/computate-org/computate_wxwidgets
-- https://github.com/computate-org/computate_enet
-- https://github.com/computate-org/computate_miniupnpc
-- https://github.com/computate-org/computate_curl
 - https://github.com/computate-org/computate_libsodium
 - https://github.com/computate-org/computate_gloox
-- https://github.com/computate-org/computate_miniupnpc
+
+```bash
+
+install -d ~/.ansible/roles/computate.computate_wxwidgets
+git clone https://github.com/computate-org/computate_wxwidgets.git ~/.ansible/roles/computate.computate_wxwidgets/
+cd ~/.ansible/roles/computate.computate_wxwidgets/
+ansible-playbook install.yml
+
+install -d ~/.ansible/roles/computate.computate_enet
+git clone https://github.com/computate-org/computate_enet.git ~/.ansible/roles/computate.computate_enet/
+cd ~/.ansible/roles/computate.computate_enet/
+ansible-playbook install.yml
+
+install -d ~/.ansible/roles/computate.computate_gloox
+git clone https://github.com/computate-org/computate_gloox.git ~/.ansible/roles/computate.computate_gloox/
+cd ~/.ansible/roles/computate.computate_gloox/
+ansible-playbook install.yml
+```
 
 # Install the 0ad ansible role
 
