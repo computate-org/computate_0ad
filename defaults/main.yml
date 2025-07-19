@@ -6,7 +6,7 @@ APP_DEPENDENCIES_REDHAT:
   - yasm
   - clang
   - clang-devel
-  - clang15-devel
+#  - clang15-devel
   - llvm
   - llvm-devel
   - rustfmt
@@ -14,8 +14,8 @@ APP_DEPENDENCIES_REDHAT:
   - rust
   - cargo
   - fmt-devel
-  - gloox-devel
   - libicu-devel
+  - libcurl-devel
   - miniupnpc-devel
   - libogg
   - libogg-devel
@@ -25,7 +25,7 @@ APP_DEPENDENCIES_REDHAT:
   - libxml2-devel
   - gcc-c++
   - php-xml
-  - python3
+  - python
   - zip
   - cmake
   - patch
@@ -33,15 +33,15 @@ APP_DEPENDENCIES_REDHAT:
   - pkgconfig
   - SDL2-devel
   - nspr-devel
-  - mozjs78-devel
   - dbus
   - dbus-x11
   - libXcursor-devel
   - zlib-devel
   - libjpeg-devel
   - libtiff-devel
-  - wxGTK3-devel
-  - boost1.78-devel
+  - wxGTK-devel
+  - boost-devel
+  - libuuid-devel
 APP_DEPENDENCIES: "{{ APP_DEPENDENCIES_REDHAT if ansible_distribution_file_variety == 'RedHat' else APP_DEPENDENCIES_REDHAT }}"
 APP_NAME: 0ad
 APP_DISPLAY_NAME: 0 A.D.
@@ -53,9 +53,9 @@ APP_ROOT: "{{ false if APP_PREFIX is regex('^/home') else true }}"
 APP_SRC: "{{ APP_PREFIX }}/src/{{ APP_NAME }}"
 APP_README: "{{ APP_SRC }}/README.md"
 APP_OPT: "{{ APP_PREFIX }}/opt"
-APP_REPO_SSH: git@github.com:0ad/0ad.git
+APP_REPO_SSH: git@gitea.wildfiregames.com:0ad/0ad.git
 APP_REPO_HTTPS: "{{ APP_REPO_SSH | regex_replace('git@([^:]+):', 'https://\\1/') }}"
-APP_TAG: A26
+APP_TAG: a27.1-rc3
 #APP_REPO_SVN: https://svn.wildfiregames.com/public/ps/trunk/
 #APP_TAG: r25860
 APP_DESKTOP: "{{ APP_PREFIX }}/share/applications/{{ APP_NAME }}.desktop"
