@@ -5,10 +5,12 @@
 sudo subscription-manager repos --enable codeready-builder-for-rhel-9-$(arch)-rpms
 sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 sudo crb enable
+
+sudo dnf install -y ansible-core
 ```
 
 - https://github.com/computate-org/computate_wxwidgets
-- https://github.com/computate-org/computate_libsodium
+- https://github.com/computate-org/computate_enet
 - https://github.com/computate-org/computate_gloox
 
 ```bash
