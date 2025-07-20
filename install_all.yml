@@ -2,7 +2,7 @@
   connection: local
   hosts: localhost
   roles:
-    - computate.computate_wxwidgets
+    - computate-org.computate_wxwidgets
     - computate.computate_enet
-    - computate.computate_gloox
+    - computate-org.computate_gloox
     - computate.computate_0ad
