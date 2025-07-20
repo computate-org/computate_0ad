@@ -41,7 +41,7 @@ galaxy_info:
     #       Maximum 20 tags per role.
 
 dependencies:
-  - role: computate.computate_wxwidgets
-  - role: computate.computate_enet
-  - role: computate.computate_gloox
+  - role: computate-org.computate_wxwidgets
+  - role: computate-org.computate_enet
+  - role: computate-org.computate_gloox
 
