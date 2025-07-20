@@ -42,6 +42,6 @@ galaxy_info:
 
 dependencies:
   - role: computate-org.computate_wxwidgets
-  - role: computate-org.computate_enet
+  - role: computate.computate_enet
   - role: computate-org.computate_gloox
 
