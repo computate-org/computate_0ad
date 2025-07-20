@@ -29,6 +29,10 @@
     recursive: true
     update: true
   when: not APP_README_PATH.stat.exists and CLONE_REPO.failed
+- name: "Clone the Git large files in the repo"
+  shell: "git lfs pull"
+  args:
+    chdir: "{{ APP_SRC }}"
 - name: "Run (cd {{ APP_SRC }}/libraries && ./build-source-libs.sh)"
   shell: "./build-source-libs.sh"
   args:

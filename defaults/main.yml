@@ -42,6 +42,7 @@ APP_DEPENDENCIES_REDHAT:
   - wxGTK-devel
   - boost-devel
   - libuuid-devel
+  - git-lfs
 APP_DEPENDENCIES: "{{ APP_DEPENDENCIES_REDHAT if ansible_distribution_file_variety == 'RedHat' else APP_DEPENDENCIES_REDHAT }}"
 APP_NAME: 0ad
 APP_DISPLAY_NAME: 0 A.D.
