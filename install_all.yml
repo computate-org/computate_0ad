@@ -1,0 +1,8 @@
+- name: "install app locally"
+  connection: local
+  hosts: localhost
+  roles:
+    - computate.computate_wxwidgets
+    - computate.computate_enet
+    - computate.computate_gloox
+    - computate.computate_0ad
