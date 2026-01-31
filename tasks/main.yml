@@ -37,12 +37,12 @@
   shell: "./build-source-libs.sh"
   args:
     chdir: "{{ APP_SRC }}/libraries"
-- name: "Run env (cd {{ APP_SRC }}/build/workspaces && PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh)"
-  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh"
-  args:
-    chdir: "{{ APP_SRC }}/build/workspaces"
-- name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --without-tests --without-pch -j $(nproc)"
-  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --without-tests --without-pch -j $(nproc)"
+#- name: "Run env (cd {{ APP_SRC }}/build/workspaces && PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh)"
+#  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./clean-workspaces.sh"
+#  args:
+#    chdir: "{{ APP_SRC }}/build/workspaces"
+- name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --without-tests --without-pch --witout-atlas -j $(nproc)"
+  shell: "env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig ./update-workspaces.sh --without-tests --without-pch --without-atlas -j $(nproc)"
   args:
     chdir: "{{ APP_SRC }}/build/workspaces"
 - name: "Run env PKG_CONFIG_PATH={{ APP_PREFIX }}/lib64/pkgconfig:{{ APP_PREFIX }}/lib/pkgconfig LIBRARY_PATH={{ APP_PREFIX }}/lib CPATH={{ APP_PREFIX }}/include make -j $(nproc)"

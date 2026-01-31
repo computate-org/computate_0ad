@@ -40,8 +40,8 @@ galaxy_info:
     # NOTE: A tag is limited to a single word comprised of alphanumeric characters.
     #       Maximum 20 tags per role.
 
-dependencies:
-  - role: computate-org.computate_wxwidgets
-  - role: computate.computate_enet
-  - role: computate-org.computate_gloox
+    #dependencies:
+    #  - role: computate-org.computate_wxwidgets
+    #  - role: computate.computate_enet
+    #  - role: computate-org.computate_gloox
 
