@@ -43,6 +43,7 @@ APP_DEPENDENCIES_REDHAT:
   - boost-devel
   - libuuid-devel
   - git-lfs
+  - cbindgen
 APP_DEPENDENCIES: "{{ APP_DEPENDENCIES_REDHAT if ansible_distribution_file_variety == 'RedHat' else APP_DEPENDENCIES_REDHAT }}"
 APP_NAME: 0ad
 APP_DISPLAY_NAME: 0 A.D.
@@ -56,7 +57,7 @@ APP_README: "{{ APP_SRC }}/README.md"
 APP_OPT: "{{ APP_PREFIX }}/opt"
 APP_REPO_SSH: git@gitea.wildfiregames.com:0ad/0ad.git
 APP_REPO_HTTPS: "{{ APP_REPO_SSH | regex_replace('git@([^:]+):', 'https://\\1/') }}"
-APP_TAG: a27.1-rc3
+APP_TAG: v0.28.0
 #APP_REPO_SVN: https://svn.wildfiregames.com/public/ps/trunk/
 #APP_TAG: r25860
 APP_DESKTOP: "{{ APP_PREFIX }}/share/applications/{{ APP_NAME }}.desktop"
